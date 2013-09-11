@@ -1,4 +1,63 @@
 
-/* Init device. For instance set all control registers */
+/* In this file there are linear pieces of code which do simple manipulation 
+ with the variables and ports on the low level. These pieces of code does 
+ not lead to the change of state. The change of state is happend only when 
+ the end of fragment is reached or any interrupt is happend.
 
-  
+ All global and local variable locations are optimized by translator 
+ and they are placed to the best location to minimize memory use and 
+ maximize the performance.*/
+
+ui Status	
+
+/*This is an initialisation status of the device. All output parameters 
+are placed in first pair of () and the second () are used for input parameters*/
+
+
+(Status, sd init_exit_local) Init ()
+{
+	/* Here some local variables can be initialazed and used */
+	uc STATUS_REG @ 0x08
+	
+	/*... 
+	On changing of state, it means on exit from current state,
+	some parameters could be transfered to the next state where they could 
+	be used.
+
+	Even if the linear piece of code is executing it can setup arguments to be
+	passed to intercepting routine.*/
+
+	uc Local_counter
+	uc4 some_value
+
+
+	args interrupt0(Local_counter, some_value)
+
+	/*if this stream will be interrupted by int0, these variable will be 
+	accessible for inner use inside interrupt0
+
+	this mechanism could be used usually for supplying kernel with the 
+	information where the routine was interrupted.*/
+
+	Status |= 0x08 
+	/* It's an example of the value which go out to the next line
+	(state, stream, branch)*/
+
+	init_exit_local = -0.4454 
+	/*It's a signed double variable which can be passed only to the next state*/
+
+}
+
+() A2D (Status, a2d_local = init_exit_local)
+{
+	/*This status variable was transfered from one state to another, but it's
+	actually accessible from any other state, because this var is global*/
+
+	/*It's not necessary to write type of init_exit_local second time, because
+	parser will find this type during linking. names of local variables of 
+	sequential streams could be different, but in this case initialisation
+	of values should be done in arguments list */
+
+	/*In this case the type of a2d_local will be derived from init_exit_local */
+
+}
