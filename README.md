@@ -1,0 +1,1 @@
+This is just my description of state machine. It's not interesting to others.

@@ -1,0 +1,24 @@
+Init -> A2D -> Int_FPWR -> Int_RPWR -> A2D
+
+ST1 = A2D | Int_FPWR | Int_RPWR
+
+ST1-> Int_T0 ^
+  |-> Int_I2C ^
+  |-> Int_RX ^
+  |-> Int_TX ^
+
+Int_T0 -> Add_Tick -> 
+Check_TX_BUF -> Int_TX ^
+			|-> ^
+
+Int_RX -> 
+Check_PACK -> PACK_IS_NOT_READY -> Int_RX
+		  |-> PACK_READY -> MakeReplyPACK -> SEND_PACK -> ^
+
+
+Int_TX -> Send_BYTE -> Update_TX_Counter -> ^
+
+Int_I2C -> Start_I2C -> Wait_Ready ^
+	   |-> Write_I2C -> Wait_Ready ^
+	   |-> Read_I2C -> Wait_Ready ^
+	   |-> Stop_I2C -> Wait_Ready ^
