@@ -159,6 +159,59 @@ are placed in first pair of () and the second () are used for input parameters*/
 
 }
 
+uc FlagSW1 /*global key for switch*/
+
+() Dyn_Switch_Create ()
+{
+	/*Switches also can be added to the SM dynamically, on the base of 
+	existing or dynamically created streams.*/
+
+	newswitch DynSwitch 
+
+	DynSwitch.key = FlagSW1
+
+	DynSwitch.rule = ...
+
+}
+
+() Dyn_Stream_Create ()
+{
+	/*This stream creates a stream dynamically and it's 
+	not attached to the state, it can be invoked from the any state, just
+	keeping the same state.*/
+
+	/*It's quite similar to creation of new state, but stream is not 
+	attached to the states set.*/
+
+	newstream DStream	/*Just declaration of the name of new stream*/
+
+	/*This stream can be invoked after compilation*/
+	
+	/*Body of the stream can be created from bytecode, compiled during runtime.*/
+	DStream.body = compile(itext)
+
+	/*After that input and output variables should be linked. Let's
+	say we know the names of params to be linked, for instance,
+	itext had iparams like ip1, ip2, and output params like op1, op2,
+	so we have to create 2 strings like*/
+
+	uc ipar[..] = "ip1 = oparam_of_previous_STATE, ip2 = some_global_var"
+	uc opar[..] = "op1, op2"
+	
+	DStream.iparams = ipar 
+	DStream.oparams = opar 
+
+	/*Linking of params list is still can fail, in this case, nothing fatal will
+	happen to the state machine. The other possible way to link iparam and oparam
+	is below */
+
+	(opar)DStream(ipar) 
+	/* The call of this stream it's a substate and in the case of fail
+	this substate is just skipped. */
+
+
+}
+
 (uc code[..]) compile (un text[..])
 {
 	/*This translator will be added to the any state machine with the
