@@ -60,4 +60,40 @@ are placed in first pair of () and the second () are used for input parameters*/
 
 	/*In this case the type of a2d_local will be derived from init_exit_local */
 
+	/*Variable types*/
+
+	ch  aaa /*Char, signed, 8 bits*/
+	uc  bbb /*Unsigned char 8 bits*/
+	ch2 ccc /*Signed char 16 bits*/
+	uc2 ddd /*Unsigned char 16 bits*/
+	i2  eee /*signed int 16 bits*/
+	ui2 fff /*unsigned int 16 bits*/
+	i4  ggg
+	ui4 hhh
+	d2	iii /*double*/
+	d4	jjj
+	d8  kkk
+
+	/*For convinience bit access is done like in C compilers for microchips*/
+	/*bits operations are the same as for C*/
+	hhh.14 = bbb.2
+
+	/*arrays*/
+
+	uc ar[1..30]
+	ui4 bt[4][10] @ 0x1000 = {1,2,3,4,5,3,4,3,4,3}
+	/*All arrays, no matter what length are placed in the memory lineary, 
+	there is no dynamic memory allocation yet. All sizes and boundary checks are
+	to be done at compilation step. All objects can be initialized any time,
+	and could be placed at any location in the memory*/
+
+	/*Every stream has a counter, how many times it was invoked, the name of 
+	it is "rcount". This counter could be used inside stream. This counter could
+	be reset outside stream. There is another counter "icount" could be reset
+	from inside of stream. "rcount" is used by switches for loop organisation */
+
+	/*Copying of objects is done on byte level. No matter how complex data is,
+	there is no type conversion. If types are not written during creation 
+	of the program it's derived during compilation.*/
+
 }
