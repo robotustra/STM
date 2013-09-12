@@ -97,3 +97,70 @@ are placed in first pair of () and the second () are used for input parameters*/
 	of the program it's derived during compilation.*/
 
 }
+
+
+() Dyn_State_Create ()
+{
+	/* There dynamic allocation of states and switches is possible.
+	First of all this proc should create the states set in the memory.*/
+
+	newstate NewDynamicState	/*Just declaration of the name of new state*/
+
+	/*This dynamic states could not be interted to the state machine at any place
+	It should be determined the place for that in the states set.
+	For instance, if we have states set NDS, we can add any umber of states to 
+	this set.*/
+
+	/*Now we have to all body to the state, which can contain any set of
+	streams, linked sequentially.*/
+
+	/*Body of the state can be created from bytecode, compiled during runtime.*/
+	NewDynamicState.body = compile(itext)
+
+	/*Compiler uses text as input and the set of basis stream operations.
+	Every stream is linear and that's why the compilation process shouldn't 
+	take much time. If compiler will fail, or there errors will be during 
+	compilation process - 0-legth output will be done.*/
+
+	/*After that input and output variables should be linked. Let's
+	say we know the names of params to be linked, for instance,
+	itext had iparams like ip1, ip2, and output params like op1, op2,
+	so we have to create 2 strings like*/
+
+	uc ipar[..] = "ip1 = oparam_of_previous_STATE, ip2 = some_global_var"
+	uc opar[..] = "op1, op2"
+	
+	NewDynamicState.iparams = ipar 
+	NewDynamicState.oparams = opar 
+
+	/*Linking of params list is still can fail, in this case, nothing fatal will
+	happen to the state machine. The other possible way to link iparam and oparam
+	is below */
+
+	(opar)NewDynamicState(ipar)
+
+	/*This param list can be modified any time befor linking or unlinking*/
+
+	/*After creation of new dynamic state it could be added to the states set,
+	which is declared as "dynamic". By doing this the chain of states is modified,
+	and input params of the right-side state will be got from newly inserted state.
+	Of cause, input params of inserted state will be linked to the 
+	left-hand side state.
+	*/
+
+	NDS = NewDynamicState | NDS
+
+	/*We also could insert it in the end of chain, 
+	by doing NDS = NDS | NewDynamicState */
+
+	/*After this operation, if everything was fine new state will work.
+	If there any problem with linking - the number of states in NDS set
+	will not be changed. the number of states is inside "NDS.length". */
+
+}
+
+(uc code[..]) compile (un text[..])
+{
+	/*This translator will be added to the any state machine with the
+	basis library*/
+}

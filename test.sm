@@ -1,4 +1,6 @@
-Init -> A2D -> Int_FPWR -> Int_RPWR -> A2D
+NDS = dynamic
+
+Init -> A2D -> Int_FPWR -> Int_RPWR -> NDS -> A2D
 
 ST1 = A2D | Int_FPWR | Int_RPWR
 
@@ -22,3 +24,5 @@ Int_I2C -> Start_I2C -> Wait_Ready ^
 	   |-> Write_I2C -> Wait_Ready ^
 	   |-> Read_I2C -> Wait_Ready ^
 	   |-> Stop_I2C -> Wait_Ready ^
+
+ 
