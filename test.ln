@@ -157,6 +157,9 @@ are placed in first pair of () and the second () are used for input parameters*/
 	If there any problem with linking - the number of states in NDS set
 	will not be changed. the number of states is inside "NDS.length". */
 
+	/*Now I have to think a bit how to delete this new state from
+	the set of states...*/
+
 }
 
 uc FlagSW1 /*global key for switch*/
@@ -170,7 +173,17 @@ uc FlagSW1 /*global key for switch*/
 
 	DynSwitch.key = FlagSW1
 
-	DynSwitch.rule = ...
+	/*Now I can add some rules*/
+	FlagSW1_case1 = [5..9]
+
+	DynSwitch.rule(FlagSW1_case1, NewDynamicState)
+	DynSwitch.rule(other, NewDynSt2)
+
+	/*This dynamic state also should be defined in this file or in other .ln
+	file in this folder.
+	I think it's quite good idea to have all 3 types of file of one executable 
+	in one folder. It permits for instance give parser the name of folder 
+	to build final state machine.*/
 
 }
 
