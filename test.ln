@@ -148,17 +148,21 @@ are placed in first pair of () and the second () are used for input parameters*/
 	left-hand side state.
 	*/
 
-	NDS = NewDynamicState | NDS
+	NDS = NewDynamicState + NDS 
 
 	/*We also could insert it in the end of chain, 
-	by doing NDS = NDS | NewDynamicState */
+	by doing NDS = NDS + NewDynamicState */
 
 	/*After this operation, if everything was fine new state will work.
 	If there any problem with linking - the number of states in NDS set
 	will not be changed. the number of states is inside "NDS.length". */
 
-	/*Now I have to think a bit how to delete this new state from
-	the set of states...*/
+	/*To delete this new state from the set of states is possile by doing
+
+	NDS -= NewDynamicState
+	*/
+
+
 
 }
 
@@ -228,5 +232,7 @@ uc FlagSW1 /*global key for switch*/
 (uc code[..]) compile (un text[..])
 {
 	/*This translator will be added to the any state machine with the
-	basis library*/
+	basis library.
+
+	Different languages could be used, and different compilers also.*/
 }

@@ -1,0 +1,61 @@
+/* The set of operations being used for small C-like languege.
+
+	This set of instructions should be translated into assembler code, used by state 
+	machines. The compilation of code is done into object code, and the next stage is
+	determining of variable position and general call and goto structure, constrained
+	switches and state machine. */
+
+
+/* Equalizing the content of locations. This operatoin is applicable for bytes,
+	array of bytes. Initialization, or filling with constant value
+	Similar to memcpy. */
+
+(output) = (input)
+
+/* Operation of declaration of array, operation of taking _INDEX_ element of
+	array or operation of taking bit value of byte or any base variable.*/
+
+_VAR_ [_INDEX_]
+
+
+/*Operation for memory allocation of some base set of values*/
+
+_TYPE_ [_RANGE_]
+
+/*Comparison*/
+
+(_EXPR_ > _EXPR_) /* There are only next types of comparison: >, >=, !=, == */
+true{ _CODE_ }
+false{ _CODE_ }
+
+/*Other types of expressions are not used because it's easy to swap variables.
+	True and False blocks are made for conviniese and they can be described in 
+	different order.
+
+	logical comparison is used.
+*/
+
+/*Bitwise operations*/
+
+~ _VAR_ //Not
+
+_VAR_ & _VAR_ //And
+
+_VAR_ | _VAR_ //Or
+
+_VAR_ ^ _VAR_ //Xor
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
