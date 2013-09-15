@@ -2,6 +2,8 @@ NDS = dynamic
 
 Init -> A2D -> Int_FPWR -> Int_RPWR -> NDS -> A2D
 
+A2D &-> Other_CoreState1 -> Other_CoreState2 -> Other_CoreState1
+
 ST1 = A2D | Int_FPWR | Int_RPWR
 
 ST1-> Int_T0 ^
